@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Izzy 🩷</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffc0da;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff1f7a;
+      font-size: 50px;
+      margin-top: 40px;
+      min-height: 60px;
+    }
+
+    p {
+      color: #b30059;
+      font-size: 22px;
+      padding: 0 25px;
+      line-height: 1.5;
+    }
+
+    button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 22px;
+      border-radius: 40px;
+      cursor: pointer;
+      margin: 12px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff1493;
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      position: absolute;
+    }
+
+    #surprise {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .bouquet {
+      font-size: 75px;
+      margin-top: 15px;
+    }
+
+    .heart, .rose, .confetti, .pinkHeart {
+      position: absolute;
+      font-size: 26px;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    #secretMessage {
+      display: none;
+      font-size: 24px;
+      color: #ff0066;
+      margin-top: 20px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1 id="name"></h1>
+
+<p>
+  Izzy…<br>
+  Every little thing reminds me of you 🩷<br>
+  Pink roses 🌹, soft moments,<br>
+  and a song that feels like my heart 🎶<br>
+  <em>“Ghost” – Justin Bieber</em>
+</p>
+
+<h2 style="color:#ff2f92;">Will you be my Valentine? 💘</h2>
+
+<div>
+  <button onclick="yesClicked()">Yes, of course 💖</button>
+  <button id="noBtn" onmouseover="runAway()">No 🙈</button>
+</div>
+
+<!-- Secret Message Button -->
+<div>
+  <button onclick="revealMessage()">Unlock a secret 💕</button>
+</div>
+
+<!-- Secret Love Message -->
+<div id="secretMessage">
+  <p>
+    My heart is full of you, Izzy. 💖  
+    I can’t imagine my life without you in it.  
+    You make every day brighter, and I’m so grateful to have you as mine.  
+    Forever yours… always. 🩷
+  </p>
+</div>
+
+<div id="surprise">
+  <h2 style="color:#ff1f7a;">
+    You make my world softer, brighter,<br>
+    and happier just by being in it 💕
+  </h2>
+  <div class="bouquet">💐🌹🌸🌹💐</div>
+</div>
+
+<audio id="song">
+  <source src="Justin Bieber - Ghost(MP3_160K).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Typing Izzy animation
+  const text = "Izzy 🩷";
+  let i = 0;
+  function typeName() {
+    if (i < text.length) {
+      document.getElementById("name").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeName, 200);
+    }
+  }
+  typeName();
+
+  function runAway() {
+    const btn = document.getElementById("noBtn");
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  }
+
+  function yesClicked() {
+    // Play the music and make it auto-start
+    const song = document.getElementById("song");
+    song.volume = 0.8;
+    song.load();
+    song.play();
+
+    document.getElementById("surprise").style.display = "block";
+
+    // Start interactive effects (roses, hearts, pink hearts, confetti)
+    startHearts();
+    startRoses();
+    startConfetti();
+    startPinkHearts();
+  }
+
+  // Start pink hearts floating
+  function startPinkHearts() {
+    setInterval(() => drop("🩷", "pinkHeart"), 350);
+  }
+
+  // Start hearts falling
+  function startHearts() {
+    setInterval(() => drop("🩷", "heart"), 300);
+  }
+
+  // Start roses falling
+  function startRoses() {
+    setInterval(() => drop("🌸", "rose"), 350);
+  }
+
+  // Start confetti falling
+  function startConfetti() {
+    setInterval(() => drop("🎊", "confetti"), 250);
+    setInterval(() => drop("🥳", "confetti"), 400);
+  }
+
+  // Drop elements (hearts, roses, confetti) from the top
+  function drop(symbol, className) {
+    const item = document.createElement("div");
+    item.className = className;
+    item.innerHTML = symbol;
+    item.style.left = Math.random() * window.innerWidth + "px";
+    item.style.top = "-40px";
+    document.body.appendChild(item);
+    setTimeout(() => item.remove(), 5000);
+  }
+
+  // Reveal the secret message with animation
+  function revealMessage() {
+    const message = document.getElementById("secretMessage");
+    message.style.display = "block";
+    setTimeout(() => {
+      message.style.opacity = 1;
+    }, 100);
+  }
+</script>
+
+</body>
+</html>
